@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <section class="w-11/12 mx-auto grid gap-2 px-4 py-6 min-h-7/12 content-center justify-start">
+        <div class="grid gap-4 w-8/12">
+            <h1 class="font-bold text-5xl capitalize text-green-500">Loan calculator</h1>
+            <p class="font-medium text-lg text-gray-800">A loan calculator is a financial planning tool that allows you to compare different loan repayment methods. The loan calculator in front of you will calculate  for you the amount of your expected monthly repayments based on the loan amount you set, or alternatively, will calculate the amount of the loan you can receive according to the monthly amount you can allocate for loan repayment.</p>
+            <p class="font-normal text-lg text-gray-800">The data can be entered in the windows at the bottom of the columns or using the scroll bars.</p>
+        </div>
+    </section>
+    <section class="w-11/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
+        <div class="calculator-type-toggler flex gap-2">
+            <button class="px-4 py-1 font-normal text-md active" id="spitzer">Spitzer</button>
+            <button class="px-4 py-1 font-normal text-md" id="equal_fund">Equal Fund</button>
+        </div>
+        <div class="grid" id="spitzer_calc">
+            <form action="" class="flex gap-4">
+                <div class="form-group flex gap-3 items-center">
+                    <input type="radio" name="calc_result" id="monthly_payment_selector" checked>
+                    <label for="monthly_payment_selector" class="font-medium text-md">Monthly Payment</label>
+                </div>
+                <div class="form-group flex gap-3 items-center">
+                    <input type="radio" name="calc_result" id="load_amount_selector">
+                    <label for="load_amount_selector" class="font-medium text-md">Loan Amount</label>
+                </div>
+            </form>
+
+            <div class="grid">
+                <div class="grid">
+                    <p>The Spitzer repayment method divides the total loan amount*, consisting of principal and interest, into regular monthly payments for the entire loan period. </p>
+                    <p>In loans linked to an index or a foreign exchange rate, the loan calculator will update the loan repayment payments according to the expected differences.</p>
+                </div>
+            </div>
+        </div>
+        <div class="hidden" id="equal_fund_calc">
+            <div class="grid">
+                <div class="grid">
+                    <p>The equal principal repayment method divides the principal component of the loan* into fixed monthly payments for the entire term of the loan.</p>
+                    <p>This repayment method is characterized by decreasing payments, because the smaller the principal, so is the current interest derived from it.</p>
+                    <p>In loans linked to the index or the foreign exchange rate, the differences will be added to the loan repayment amount.</p>
+                </div>
+            </div>
+        </div>
+        <div id="calc_input" class="grid grid-cols-5">
+            <div class="calc-group grid">
+                <div class="value_adjuster">
+                    <div class="range">
+                        <span class="ball-seat"></span>
+                        <span class="ball" id="loan_amount_ball"></span>
+                    </div>
+                    <div class="values grid gap-2">
+                        <span>and above 1,000,000</span>
+                        <span>900,000</span>
+                        <span>800,000</span>
+                        <span>700,000</span>
+                        <span>600,000</span>
+                        <span>500,000</span>
+                        <span>400,000</span>
+                        <span>300,000</span>
+                        <span>200,000</span>
+                        <span>100,000</span>
+                        <span>1,000</span>
+                    </div>
+                </div>
+                <form action="" class="grid gap-2 text-center " id="loan_amount_form">
+                    <input type="number" name="" id="loan_amount_field" class="py-1 px-2 bg-slate-100">
+                    <label for="loan_amount_field" class="text-white">Loan Amount</label>
+                </form>
+            </div>
+            <div class="calc-group grid">
+                <div class="value_adjuster">
+                    <div class="range">
+                        <span class="ball-seat"></span>
+                        <span class="ball" id="several_months_ball"></span>
+                    </div>
+                    <div class="values grid gap-2">
+                        <span>120</span>
+                        <span>108</span>
+                        <span>96</span>
+                        <span>84</span>
+                        <span>72</span>
+                        <span>60</span>
+                        <span>48</span>
+                        <span>36</span>
+                        <span>24</span>
+                        <span>12</span>
+                        <span>2</span>
+                    </div>
+                </div>
+                <form action="" class="grid gap-2 text-center">
+                    <input type="number" name="" id="several_months" class="py-1 px-2 bg-slate-100">
+                    <label for="several_months" class="text-white">Several Months</label>
+                </form>
+            </div>
+            <div class="calc-group grid">
+                <div class="value_adjuster">
+                    <div class="range">
+                        <span class="ball-seat"></span>
+                        <span class="ball" id="annual_interest_ball"></span>
+                    </div>
+                    <div class="values grid gap-2">
+                        <span>above 16%</span>
+                        <span>15%</span>
+                        <span>13.5%</span>
+                        <span>11.9%</span>
+                        <span>10.5%</span>
+                        <span>8.9%</span>
+                        <span>7.5%</span>
+                        <span>5.6%</span>
+                        <span>4.5%</span>
+                        <span>2.9%</span>
+                        <span>1.5%</span>
+                        <span>0%</span>
+                    </div>
+                </div>
+                <form action="" class="grid gap-2 text-center">
+                    <input type="number" name="" id="annual_interest" class="py-1 px-2 bg-slate-100">
+                    <label for="annual_interest" class="text-white">Annual Interest</label>
+                </form>
+            </div>
+            <div class="calc-group grid">
+                <div class="value_adjuster">
+                    <div class="range">
+                        <span class="ball-seat"></span>
+                        <span class="ball" id="foreign_exchange_ball"></span>
+                    </div>
+                    <div class="values grid gap-2">
+                        <span>above 9%</span>
+                        <span>8.4%</span>
+                        <span>7.5%</span>
+                        <span>6.7%</span>
+                        <span>5.8%</span>
+                        <span>5%</span>
+                        <span>4.1%</span>
+                        <span>3.3%</span>
+                        <span>2.5%</span>
+                        <span>1.6%</span>
+                        <span>0.8%</span>
+                        <span>0%</span>
+                    </div>
+                </div>
+                <form action="" class="grid gap-2 text-center">
+                    <input type="number" name="" id="foreign_exchange" class="py-1 px-2 bg-slate-100">
+                    <label for="foreign_exchange" class="text-white">Linkage to index/foreign exchange </label>
+                </form>
+            </div>
+            <div class="calc-group grid">
+                <div class="value_adjuster">
+                    <div class="range">
+                        <span class="ball-seat"></span>
+                        <span class="ball" id="monthly_payment_ball"></span>
+                    </div>
+                    <div class="values grid gap-2">
+                        <span>above 11,000</span>
+                        <span>10,000</span>
+                        <span>9,000</span>
+                        <span>8,000</span>
+                        <span>7,000</span>
+                        <span>6,000</span>
+                        <span>5,000</span>
+                        <span>4,000</span>
+                        <span>3,000</span>
+                        <span>2,000</span>
+                        <span>1,000</span>
+                        <span>1</span>
+                    </div>
+                </div>
+                <form action="" class="grid gap-2 text-center active" id="monthly_payment_form">
+                    <input type="number" name="" id="monthly_payment_field" class="py-1 px-2 bg-slate-100">
+                    <label for="monthly_payment_field" class="text-white">Monthly payment</label>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

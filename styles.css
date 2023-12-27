@@ -1,0 +1,202 @@
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-block-size: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-inline-size: 100%;
+  display: block;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  box-shadow: none;
+  outline: transparent;
+  border: none;
+}
+section {
+  padding: 0;
+}
+
+body {
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  margin: 0;
+}
+section {
+  scroll-snap-align: start;
+}
+
+.calculator-type-toggler button {
+  border: 2px solid gray;
+  color: #292929;
+  transition: .2s linear;
+}
+.calculator-type-toggler button:not(.active):hover {
+  border-bottom: 2px solid #3A880F;
+  color: #3A880F;
+}
+
+.calculator-type-toggler button.active {
+  background: #3A880F;
+  color: white;
+}
+
+#calc_input {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.calc-group .value_adjuster {
+  display: grid;
+  grid-template-columns: .1fr .5fr;
+  padding: 1rem;
+  background: #F4F4F4;
+}
+
+.calc-group .range {
+  height: 70vh;
+  width: 20px;
+  justify-items: center;
+  position: relative;
+}
+
+.calc-group {
+  display: grid;
+  align-items: stretch;
+}
+
+.calc-group form {
+  background-color: #3C3B3B;
+  padding: 1rem 2rem;
+}
+
+.calc-group form.active {
+  background-color: #3A880F;
+}
+
+.range .ball-seat {
+  border-inline-start: 1px solid gray;
+  display: block;
+  height: 70vh;
+  width: 2px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+.range .ball {
+  width: 20px;
+  aspect-ratio: 1;
+  background-color: gray;
+  border-radius: 50%;
+  border: 1px solid gray;
+  transition: color .3s linear;
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -0px);
+  bottom: 0;
+
+  cursor: grab;
+  user-select: none;
+}
+
+.range .ball:hover {
+  background-color: black;
+}
+.calc-group .values {
+  text-align: right;
+  display: grid;
+  gap: 1rem;
+}
+
+.calc-group .values span {
+  border-block-end: 1px solid hsl(0, 0%, 90%);
+}
+
+button {
+  cursor: pointer;
+}
+
+.grid {display: grid;}
+.hidden {display: none;}
