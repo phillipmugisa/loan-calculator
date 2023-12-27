@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
-        let R = (annual_interest.value / 100 / 12) + (foreign_exchange.value / 100 / 12)
+        let R = ((annual_interest.value / 100 ) + (foreign_exchange.value / 100 )) / 12
         if (currentCalc === "spitzer") {
             let ffm = ((1 / several_months.value) + (R * 1) / 2 * ((2 * several_months.value) + 1) / several_months.value)
             if (document.querySelector("#monthly_payment_selector").checked) {
@@ -115,8 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 loan_amount_field.value = Principle.toFixed()
             }
         } else if (currentCalc === "equal_fund") {
-            let Principle = loan_amount_field.value / several_months.value  
-            let monthlyPayment = Principle + (Principle * R * several_months.value)
+            let monthlyPayment = loan_amount_field.value / several_months.value  + (loan_amount_field.value * R )
             monthly_payment_field.value = monthlyPayment.toFixed()
         }
         

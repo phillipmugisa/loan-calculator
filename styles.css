@@ -129,7 +129,7 @@ section {
 
 .calc-group .value_adjuster {
   display: grid;
-  grid-template-columns: .1fr .5fr;
+  grid-template-columns: 1fr 2fr;
   padding: 1rem;
   background: #F4F4F4;
 }
