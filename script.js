@@ -141,6 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const styleTrack = (id, value) => {
+        if (value < 0 || value > 100) {
+            return
+        }
         let elem = document.querySelector(`#${id}`)
         elem.style.bottom = `${value}%`
         elem.style.transform = `translate(-50%, ${value}%)`
