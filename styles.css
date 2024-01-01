@@ -107,6 +107,32 @@ section {
   scroll-snap-align: start;
 }
 
+.calc-group-head {
+  display: grid;
+  /* grid-template-columns: 9fr 1fr; */
+  grid-auto-flow: column;
+  padding: 0.5;
+}
+.calc-sliders {
+  display: grid;
+  gap: 0.5rem;
+  align-items: flex-start;
+  align-self: flex-start;
+}
+.calc-sliders button {
+  padding: .25rem .5rem;
+  font-size: 1rem;
+  background-color: #3A880F;
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .calc-group-head {
+    display: grid;
+    grid-auto-flow: row;
+  }
+}
+
 .calculator-type-toggler button {
   border: 2px solid gray;
   color: #292929;
@@ -124,18 +150,26 @@ section {
 
 #calc_input {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  grid-auto-flow: column;
+  /* gap: .5rem; */
+}
+
+.calc-group {
+  display: grid;
+  grid-template-rows: 6fr 1fr;
 }
 
 .calc-group .value_adjuster {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: .1fr 2fr;
   padding: 1rem;
   background: #F4F4F4;
+  align-content: stretch;
 }
 
 .calc-group .range {
-  height: 70vh;
+  /* height: 70vh; */
   width: 20px;
   justify-items: center;
   position: relative;
@@ -148,17 +182,26 @@ section {
 
 .calc-group form {
   background-color: #3C3B3B;
-  padding: 1rem 2rem;
+  padding: .5rem;
+  justify-items: center;
+  align-content: flex-start;
+}
+
+.calc-group form label {
+  color: hsl(0, 0%, 96%);
+  text-align: center;
+  max-width: 20ch;
 }
 
 .calc-group form.active {
   background-color: #3A880F;
 }
 
-.range .ball-seat {
+.range .ball-track {
   border-inline-start: 1px solid gray;
   display: block;
-  height: 70vh;
+  /* height: 78vh; */
+  height: 100%;
   width: 2px;
   position: absolute;
   top: 0;
@@ -200,3 +243,22 @@ button {
 
 .grid {display: grid;}
 .hidden {display: none;}
+
+.main-area {
+  margin-inline: auto;
+  overflow: hidden;
+  padding: .5rem;
+  display: grid;
+  justify-items: flex-start;
+}
+
+
+@media (max-width: 500px) {
+  
+   #calc_input {
+    /* grid-template-columns: 1fr; */
+  }
+
+  .sm-grid {display: grid;}
+  .sm-hidden {display: none;}
+}

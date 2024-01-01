@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="script.js" defer></script>
 </head>
-<body>
+<body style="width: 90vw;margin-inline: auto;">
     <section class="w-11/12 mx-auto grid gap-2 px-4 py-6 min-h-7/12 content-center justify-start">
         <div class="grid gap-4 w-8/12">
             <h1 class="font-bold text-5xl capitalize text-green-500">Loan calculator</h1>
@@ -16,44 +16,52 @@
             <p class="font-normal text-lg text-gray-800">The data can be entered in the windows at the bottom of the columns or using the scroll bars.</p>
         </div>
     </section>
-    <section class="w-11/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
-        <div class="calculator-type-toggler flex gap-2">
-            <button class="px-4 py-1 font-normal text-md active" id="spitzer">Spitzer</button>
-            <button class="px-4 py-1 font-normal text-md" id="equal_fund">Equal Fund</button>
-        </div>
-        <div class="grid" id="spitzer_calc">
-            <form action="" class="flex gap-4">
-                <div class="form-group flex gap-3 items-center">
-                    <input type="radio" name="calc_result" id="monthly_payment_selector" checked>
-                    <label for="monthly_payment_selector" class="font-medium text-md">Monthly Payment</label>
+    <section class="main-area w-11/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
+        <div class="calc-group-head">
+            <div>
+                <div class="calculator-type-toggler flex gap-2">
+                    <button class="px-4 py-1 font-normal text-md active" id="spitzer">Spitzer</button>
+                    <button class="px-4 py-1 font-normal text-md" id="equal_fund">Equal Fund</button>
                 </div>
-                <div class="form-group flex gap-3 items-center">
-                    <input type="radio" name="calc_result" id="load_amount_selector">
-                    <label for="load_amount_selector" class="font-medium text-md">Loan Amount</label>
+                <div class="grid" id="spitzer_calc">
+                    <form action="" class="flex gap-4">
+                        <div class="form-group flex gap-3 items-center">
+                            <input type="radio" name="calc_result" id="monthly_payment_selector" checked>
+                            <label for="monthly_payment_selector" class="font-medium text-md">Monthly Payment</label>
+                        </div>
+                        <div class="form-group flex gap-3 items-center">
+                            <input type="radio" name="calc_result" id="load_amount_selector">
+                            <label for="load_amount_selector" class="font-medium text-md">Loan Amount</label>
+                        </div>
+                    </form>
+        
+                    <div class="grid">
+                        <div class="grid">
+                            <p>The Spitzer repayment method divides the total loan amount*, consisting of principal and interest, into regular monthly payments for the entire loan period. </p>
+                            <p>In loans linked to an index or a foreign exchange rate, the loan calculator will update the loan repayment payments according to the expected differences.</p>
+                        </div>
+                    </div>
                 </div>
-            </form>
-
-            <div class="grid">
-                <div class="grid">
-                    <p>The Spitzer repayment method divides the total loan amount*, consisting of principal and interest, into regular monthly payments for the entire loan period. </p>
-                    <p>In loans linked to an index or a foreign exchange rate, the loan calculator will update the loan repayment payments according to the expected differences.</p>
+                <div class="hidden" id="equal_fund_calc">
+                    <div class="grid">
+                        <div class="grid">
+                            <p>The equal principal repayment method divides the principal component of the loan* into fixed monthly payments for the entire term of the loan.</p>
+                            <p>This repayment method is characterized by decreasing payments, because the smaller the principal, so is the current interest derived from it.</p>
+                            <p>In loans linked to the index or the foreign exchange rate, the differences will be added to the loan repayment amount.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden" id="equal_fund_calc">
-            <div class="grid">
-                <div class="grid">
-                    <p>The equal principal repayment method divides the principal component of the loan* into fixed monthly payments for the entire term of the loan.</p>
-                    <p>This repayment method is characterized by decreasing payments, because the smaller the principal, so is the current interest derived from it.</p>
-                    <p>In loans linked to the index or the foreign exchange rate, the differences will be added to the loan repayment amount.</p>
-                </div>
+            <div class="calc-sliders">
+                <button id="calc_previous">Previous</button>
+                <button id="calc_next">Next</button>
             </div>
         </div>
-        <div id="calc_input" class="grid grid-cols-5">
-            <div class="calc-group grid">
+        <div id="calc_input">
+            <div class="calc-group grid sm-grid">
                 <div class="value_adjuster">
                     <div class="range">
-                        <span class="ball-seat"></span>
+                        <hr class="ball-track">
                         <span class="ball" id="loan_amount_ball"></span>
                     </div>
                     <div class="values grid gap-2">
@@ -75,10 +83,10 @@
                     <label for="loan_amount_field" class="text-white">Loan Amount</label>
                 </form>
             </div>
-            <div class="calc-group grid">
+            <div class="calc-group grid sm-hidden">
                 <div class="value_adjuster">
                     <div class="range">
-                        <span class="ball-seat"></span>
+                        <hr class="ball-track">
                         <span class="ball" id="several_months_ball"></span>
                     </div>
                     <div class="values grid gap-2">
@@ -100,10 +108,10 @@
                     <label for="several_months" class="text-white">Several Months</label>
                 </form>
             </div>
-            <div class="calc-group grid">
+            <div class="calc-group grid sm-hidden">
                 <div class="value_adjuster">
                     <div class="range">
-                        <span class="ball-seat"></span>
+                        <hr class="ball-track">
                         <span class="ball" id="annual_interest_ball"></span>
                     </div>
                     <div class="values grid gap-2">
@@ -126,10 +134,10 @@
                     <label for="annual_interest" class="text-white">Annual Interest</label>
                 </form>
             </div>
-            <div class="calc-group grid">
+            <div class="calc-group grid sm-hidden">
                 <div class="value_adjuster">
                     <div class="range">
-                        <span class="ball-seat"></span>
+                        <hr class="ball-track">
                         <span class="ball" id="foreign_exchange_ball"></span>
                     </div>
                     <div class="values grid gap-2">
@@ -152,10 +160,10 @@
                     <label for="foreign_exchange" class="text-white">Linkage to index/foreign exchange </label>
                 </form>
             </div>
-            <div class="calc-group grid">
+            <div class="calc-group grid sm-hidden">
                 <div class="value_adjuster">
                     <div class="range">
-                        <span class="ball-seat"></span>
+                        <hr class="ball-track">
                         <span class="ball" id="monthly_payment_ball"></span>
                     </div>
                     <div class="values grid gap-2">

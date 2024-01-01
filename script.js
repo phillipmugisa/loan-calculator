@@ -36,6 +36,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    document.querySelector("#calc_previous").addEventListener("click", () => {
+        let active = document.querySelector("#calc_input .sm-grid")
+        let previous = active.previousElementSibling
+        if (previous != null) {
+            active.classList.remove("sm-grid")
+            active.classList.add("sm-hidden")
+            
+            previous.classList.remove("sm-hidden")
+            previous.classList.add("sm-grid")
+        }
+    })
+    document.querySelector("#calc_next").addEventListener("click", () => {
+        let active = document.querySelector("#calc_input .sm-grid")
+        let next = active.nextElementSibling
+        if (next != null) {
+            active.classList.add("sm-hidden")
+            active.classList.remove("sm-grid")
+    
+            next.classList.remove("sm-hidden")
+            next.classList.add("sm-grid")
+        }
+    })
+
     const updateFormUI = (computedVal, id) => {
 
         if ("loan_amount_ball" === id) {
@@ -101,12 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
-        let R = ((annual_interest.value / 100 ) + (foreign_exchange.value / 100 )) / 12
+        let R = (annual_interest.value / 100 / 12 )
         if (currentCalc === "spitzer") {
             let ffm = ((1 / several_months.value) + (R * 1) / 2 * ((2 * several_months.value) + 1) / several_months.value)
             if (document.querySelector("#monthly_payment_selector").checked) {
                 let Principle = loan_amount_field.value
-                let monthlyPayment = Principle * ffm
+                let monthlyPayment = (Principle * ffm) * (1 + foreign_exchange.value / 100)
                 monthly_payment_field.value = monthlyPayment.toFixed()
     
             } else if (document.querySelector("#load_amount_selector").checked) {
