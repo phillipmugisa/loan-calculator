@@ -129,11 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
             let ffm = ((1 / several_months.value) + (R * 1) / 2 * ((2 * several_months.value) + 1) / several_months.value)
             if (document.querySelector("#monthly_payment_selector").checked) {
                 let Principle = loan_amount_field.value
-                let monthlyPayment = (Principle * ffm) * (1 + foreign_exchange.value / 100)
+                let monthlyPayment = (Principle * ffm) * (1 + foreign_exchange.value /100)
                 monthly_payment_field.value = monthlyPayment.toFixed()
     
             } else if (document.querySelector("#load_amount_selector").checked) {
-                let monthlyPayment = monthly_payment_field.value
+                let monthlyPayment = monthly_payment_field.value 
                 let Principle = monthlyPayment / ffm
                 loan_amount_field.value = Principle.toFixed()
             }
