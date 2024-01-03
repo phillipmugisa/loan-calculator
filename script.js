@@ -245,41 +245,24 @@ document.addEventListener("DOMContentLoaded", () => {
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
-        let R = toMPercentage(parseFloat(annual_interest.value))
+        let R = toMPercentage(parseFloat(annual_interest.value)) - (toMPercentage(parseFloat(foreign_exchange.value)) * toMPercentage(parseFloat(annual_interest.value)))
         if (currentCalc === "spitzer") {
             STATE.calculator = "spitzer"
-            
-            let T = parseFloat(several_months.value)
-            let R = toMPercentage(annual_interest.value)
-            let I = toMPercentage(foreign_exchange.value || 0)
-            R = R * ( 1 + I)
-            console.log(R)
-            
-            let ffm = ((R * Math.pow((1 + R), T)) / (Math.pow((1 + R), T) - 1))
-            
-            // if (document.querySelector("#monthly_payment_selector").checked) {
-
-                let P = parseFloat(loan_amount_field.value)
-                P = P * ( 1 + I)
-
-                let M = P * ffm
-                STATE.monthly_payment_field = M
-                monthly_payment_field.value = M.toFixed()
-                
-                console.log(M)
-
-            // } else if (document.querySelector("#load_amount_selector").checked) {
-            //     let M = parseFloat(monthly_payment_field.value)
-            //     STATE.monthly_payment_field = M
-
-            //     let P_adjusted = M / ffm
-            //     let P = P_adjusted / ( 1 + I)
-            //     loan_amount_field.value = P.toFixed()
-            // }
-
-
+            let ffm = ((1 / parseFloat(several_months.value)) + (R * 1) / 2 * ((2 * parseFloat(several_months.value)) + 1) / parseFloat(several_months.value))
+            if (document.querySelector("#monthly_payment_selector").checked) {
+                let Principle = parseFloat(loan_amount_field.value) + (toMPercentage(parseFloat(foreign_exchange.value)) * parseFloat(loan_amount_field.value))
+                let monthlyPayment = Principle * ffm
+                monthly_payment_field.value = monthlyPayment.toFixed(2)
+    
+            } else if (document.querySelector("#load_amount_selector").checked) {
+                let monthlyPayment = parseFloat(monthly_payment_field.value) 
+                let Principle = monthlyPayment / ffm
+                loan_amount_field.value = Principle.toFixed(2)
+            }
         } else if (currentCalc === "equal_fund") {
             STATE.calculator = "Equal Fund"
+            let monthlyPayment = parseFloat(loan_amount_field.value) / parseFloat(several_months.value)  + (parseFloat(loan_amount_field.value) * R )
+            monthly_payment_field.value = monthlyPayment.toFixed(2)
         }
 
         if (parseFloat(loan_amount_field.value) > 0 & parseFloat(several_months.value) > 0 & parseFloat(foreign_exchange.value) > 0 & parseFloat(annual_interest.value) > 0 & parseFloat(monthly_payment_field.value) > 0) {
@@ -288,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
             STATE.several_months = parseFloat(several_months.value)
             STATE.foreign_exchange = parseFloat(foreign_exchange.value)
             STATE.annual_interest = parseFloat(annual_interest.value)
+            STATE.monthly_payment_field = parseFloat(monthly_payment_field.value)
         }
         
         updateRangeUI()       
