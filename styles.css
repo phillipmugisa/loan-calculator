@@ -300,6 +300,10 @@ table tbody {
   block-size: 80vh;
   overflow-y: auto;
 }
+.totals {
+  font-weight: 500;
+  color: black;
+}
 
 @media (max-width: 700px) {
   #calc_input {
