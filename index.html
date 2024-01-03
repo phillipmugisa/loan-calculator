@@ -18,7 +18,7 @@
     </section>
     <section class="main-area w-11/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
         <div class="calc-group-head">
-            <div>
+            <div id="for_calc" class="grid">
                 <div class="calculator-type-toggler flex gap-2">
                     <button class="px-4 py-1 font-normal text-md active" id="spitzer">Spitzer</button>
                     <button class="px-4 py-1 font-normal text-md" id="equal_fund">Equal Fund</button>
@@ -52,13 +52,39 @@
                     </div>
                 </div>
             </div>
+            <div id="for_board" class="hidden">
+                <ul>
+                    <li>
+                        <span class="label">Return Method: </span>
+                        <span id="calc_type_value" class="value">Spitzer</span>
+                    </li>
+                    <li>
+                        <span class="label">loan Amount: </span>
+                        <span id="loan_amount_value" class="value">1000</span>
+                    </li>
+                    <li>
+                        <span class="label">Period(in months): </span>
+                        <span id="payment_period_value" class="value">33</span>
+                    </li>
+                    <li>
+                        <span class="label">Annual interest: </span>
+                        <span id="annual_interest_value" class="value">4.32%</span>
+                    </li>
+                    <li>
+                        <span class="label">Indexation/Forex: </span>
+                        <span id="indexation_value" class="value">1.85%</span>
+                    </li>
+                </ul>
+            </div>
             <div class="calc-sliders">
-                <button id="calc_previous">Previous</button>
-                <button id="calc_next">Next</button>
+                <a href="">
+                    <button>Loan Request</button>
+                </a>
+                <button id="disposal_board_activator">Disposal Board</button>
             </div>
         </div>
-        <div id="calc_input">
-            <div class="calc-group grid sm-grid">
+        <div id="calc_input" class="grid">
+            <div class="calc-group grid">
                 <div class="value_adjuster">
                     <div class="range">
                         <hr class="ball-track">
@@ -83,7 +109,7 @@
                     <label for="loan_amount_field" class="text-white">Loan Amount</label>
                 </form>
             </div>
-            <div class="calc-group grid sm-hidden">
+            <div class="calc-group grid">
                 <div class="value_adjuster">
                     <div class="range">
                         <hr class="ball-track">
@@ -108,7 +134,7 @@
                     <label for="several_months" class="text-white">Several Months</label>
                 </form>
             </div>
-            <div class="calc-group grid sm-hidden">
+            <div class="calc-group grid">
                 <div class="value_adjuster">
                     <div class="range">
                         <hr class="ball-track">
@@ -134,7 +160,7 @@
                     <label for="annual_interest" class="text-white">Annual Interest</label>
                 </form>
             </div>
-            <div class="calc-group grid sm-hidden">
+            <div class="calc-group grid">
                 <div class="value_adjuster">
                     <div class="range">
                         <hr class="ball-track">
@@ -160,7 +186,7 @@
                     <label for="foreign_exchange" class="text-white">Linkage to index/foreign exchange </label>
                 </form>
             </div>
-            <div class="calc-group grid sm-hidden">
+            <div class="calc-group grid">
                 <div class="value_adjuster">
                     <div class="range">
                         <hr class="ball-track">
@@ -186,6 +212,25 @@
                     <label for="monthly_payment_field" class="text-white">Monthly payment</label>
                 </form>
             </div>
+        </div>
+
+        <div id="disposal_board" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Number of months</th>
+                        <th>Unpaid Balance</th>
+                        <th>Monthly Refund</th>
+                        <th>Fixed monthly repayment</th>
+                        <th>The component of the index on interest rate</th>
+                        <th>Payment Interest Component</th>
+                        <th>Index component on the fund</th>
+                        <th>Paid fund Component</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </section>
 </body>
