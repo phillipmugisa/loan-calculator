@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 state_copy.IndexComponentOnInterestRate = (toMPercentage(state_copy.foreign_exchange) * state_copy.paymentInterestComponent * i)
                 state_copy.paidFundComponent = state_copy.fixed_principal
                 state_copy.IndexComponentOnFund = (toMPercentage(state_copy.foreign_exchange) * state_copy.paidFundComponent * i)
-                state_copy.monthlyRefund = (state_copy.IndexComponentOnFund + state_copy.IndexComponentOnInterestRate + state_copy.monthly_payment_field)
+                state_copy.monthlyRefund = (state_copy.IndexComponentOnFund + state_copy.IndexComponentOnInterestRate + state_copy.paidFundComponent + state_copy.paymentInterestComponent)
             }
 
             totals.monthlyRefund = (totals.monthlyRefund + state_copy.monthlyRefund)
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${i}</td>
                 <td>${state_copy.loan_amount_field.toFixed(2)}</td>
                 <td>${state_copy.monthlyRefund.toFixed(2)}</td>
-                <td class=">${state_copy.monthly_payment_field.toFixed(2)}</td>
+                <td class="fmt">${state_copy.monthly_payment_field.toFixed(2)}</td>
                 <td>${state_copy.IndexComponentOnInterestRate.toFixed(2)}</td>
                 <td>${state_copy.paymentInterestComponent.toFixed(2)}</td>
                 <td>${state_copy.IndexComponentOnFund.toFixed(2)}</td>
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>0</td>
             <td>${STATE.loan_amount_field}</td>
             <td></td>
-            <td class="></td>
+            <td class="fmt"></td>
             <td></td>
             <td></td>
             <td></td>
@@ -174,18 +174,20 @@ document.addEventListener("DOMContentLoaded", () => {
             <td></td>
             <td></td>
             <td>${totals.monthlyRefund.toFixed(2)}</td>
-            <td class=">${totals.monthly_payment_field.toFixed(2)}</td>
+            <td class="fmt">${totals.monthly_payment_field.toFixed(2)}</td>
             <td>${totals.IndexComponentOnInterestRate.toFixed(2)}</td>
             <td>${totals.paymentInterestComponent.toFixed(2)}</td>
             <td>${totals.IndexComponentOnFund.toFixed(2)}</td>
             <td>${totals.paidFundComponent.toFixed(2)}</td>
         `
+        disposal_board.querySelector("tbody").prepend(totalstableRow)
 
         if (STATE.calculator != "spitzer") {
-            document.querySelectorAll(".fmt").forEach(elem => elem.remove())
+            document.querySelectorAll(".fmt").forEach(elem => {
+                elem.parentElement.removeChild(elem)
+            })
         }
 
-        disposal_board.querySelector("tbody").prepend(totalstableRow)
 
         document.querySelector("#for_calc").classList.remove("grid")
         document.querySelector("#calc_input").classList.remove("grid")
