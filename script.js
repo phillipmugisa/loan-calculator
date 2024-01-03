@@ -112,15 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = 1; i <= STATE.several_months; i++) {
             let tableRow = document.createElement("tr")
             state_copy.paymentInterestComponent = state_copy.loan_amount_field * toMPercentage(state_copy.annual_interest)
-
             state_copy.loan_amount_field = parseFloat((state_copy.loan_amount_field + state_copy.paymentInterestComponent - state_copy.monthly_payment_field))
-
-
             state_copy.IndexComponentOnInterestRate = (toMPercentage(state_copy.foreign_exchange) * state_copy.paymentInterestComponent * i)
-
             state_copy.paidFundComponent = (state_copy.monthly_payment_field - state_copy.paymentInterestComponent)
             state_copy.IndexComponentOnFund = (toMPercentage(state_copy.foreign_exchange) * state_copy.paidFundComponent * i)
-
             state_copy.monthlyRefund = (state_copy.IndexComponentOnFund + state_copy.IndexComponentOnInterestRate + state_copy.monthly_payment_field)
 
 
@@ -245,24 +240,43 @@ document.addEventListener("DOMContentLoaded", () => {
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
-        let R = toMPercentage(parseFloat(annual_interest.value)) - (toMPercentage(parseFloat(foreign_exchange.value)) * toMPercentage(parseFloat(annual_interest.value)))
+        let R = toMPercentage(parseFloat(annual_interest.value))
         if (currentCalc === "spitzer") {
             STATE.calculator = "spitzer"
-            let ffm = ((1 / parseFloat(several_months.value)) + (R * 1) / 2 * ((2 * parseFloat(several_months.value)) + 1) / parseFloat(several_months.value))
+            
+            let T = parseFloat(several_months.value)
+            let R = toMPercentage(annual_interest.value)
+            let I = toMPercentage(foreign_exchange.value || 0)
+            R = R * ( 1 + I)
+            
+            let ffm = ((R * Math.pow((1 + R), T)) / (Math.pow((1 + R), T) - 1))
+
+            // let M = ( P * R) / ( 1 - Math.pow((1 + R), -T) )
+            
             if (document.querySelector("#monthly_payment_selector").checked) {
-                let Principle = parseFloat(loan_amount_field.value) + (toMPercentage(parseFloat(foreign_exchange.value)) * parseFloat(loan_amount_field.value))
-                let monthlyPayment = Principle * ffm
-                monthly_payment_field.value = monthlyPayment.toFixed(2)
-    
+
+                let P = parseFloat(loan_amount_field.value)
+                P = P * ( 1 + I)
+
+                let M = P * ffm
+                STATE.monthly_payment_field = Mz
+                monthly_payment_field.value = M.toFixed()
+
             } else if (document.querySelector("#load_amount_selector").checked) {
-                let monthlyPayment = parseFloat(monthly_payment_field.value) 
-                let Principle = monthlyPayment / ffm
-                loan_amount_field.value = Principle.toFixed(2)
+                let M = parseFloat(monthly_payment_field.value)
+                STATE.monthly_payment_field = M
+
+                let P_adjusted = M / ffm
+                let P = P_adjusted / ( 1 + I)
+                loan_amount_field.value = P.toFixed()
             }
+
+
         } else if (currentCalc === "equal_fund") {
             STATE.calculator = "Equal Fund"
-            let monthlyPayment = parseFloat(loan_amount_field.value) / parseFloat(several_months.value)  + (parseFloat(loan_amount_field.value) * R )
-            monthly_payment_field.value = monthlyPayment.toFixed(2)
+            
+            let monthlyPayment = loan_amount_field.value / several_months.value  + (loan_amount_field.value * R )
+            monthly_payment_field.value = monthlyPayment.toFixed()
         }
 
         if (parseFloat(loan_amount_field.value) > 0 & parseFloat(several_months.value) > 0 & parseFloat(foreign_exchange.value) > 0 & parseFloat(annual_interest.value) > 0 & parseFloat(monthly_payment_field.value) > 0) {
@@ -271,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
             STATE.several_months = parseFloat(several_months.value)
             STATE.foreign_exchange = parseFloat(foreign_exchange.value)
             STATE.annual_interest = parseFloat(annual_interest.value)
-            STATE.monthly_payment_field = parseFloat(monthly_payment_field.value)
         }
         
         updateRangeUI()       
