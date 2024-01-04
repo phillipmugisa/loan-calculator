@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#several_months").value = STATE.several_months
         document.querySelector("#foreign_exchange").value = STATE.foreign_exchange
         document.querySelector("#annual_interest").value = STATE.annual_interest
-        document.querySelector("#monthly_payment_field").value = STATE.monthly_payment_field
+        document.querySelector("#monthly_payment_field").value = STATE.monthly_payment_field.toFixed()
     }
     
     const showBoard = () => {
@@ -303,30 +303,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (currentCalc === "spitzer") {
             STATE.calculator = "spitzer"
-            
-            R = R * ( 1 + I)
-            
-            let ffm = ((R * Math.pow((1 + R), T)) / (Math.pow((1 + R), T) - 1))
-
-            // let M = ( P * R) / ( 1 - Math.pow((1 + R), -T) )
+            let ffm = ( R) / ( 1 - Math.pow((1 + R), -T) )
             
             if (document.querySelector("#monthly_payment_selector").checked) {
                 document.querySelector("#disposal_board_activator").classList.remove("hidden")
-
                 let P = parseFloat(loan_amount_field.value)
-                P = P * ( 1 + I)
 
+                // for board
                 let M = P * ffm
                 STATE.monthly_payment_field = M
-                monthly_payment_field.value = M.toFixed()
+                
+                // for display
+                R = R * (1 + I)
+                P = P * (1 + I)
+                let M_a = P * ffm
+                monthly_payment_field.value = M_a.toFixed()
 
             } else if (document.querySelector("#load_amount_selector").checked) {
                 document.querySelector("#disposal_board_activator").classList.add("hidden")
                 let M = parseFloat(monthly_payment_field.value)
                 STATE.monthly_payment_field = M
-
-                let P_adjusted = M / ffm
-                let P = P_adjusted / ( 1 + I)
+                let P = M / ffm
                 loan_amount_field.value = P.toFixed()
             }
 
@@ -334,22 +331,29 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (currentCalc === "equal_fund") {
             STATE.calculator = "Equal Fund"
             let P = parseFloat(loan_amount_field.value)
-
-            R = R * ( 1 + I)
-            P = P * ( 1 + I)
-
             let M = P / T  + (P * R )
-            monthly_payment_field.value = M.toFixed()
             STATE.monthly_payment_field = M
             STATE.fixed_principal = parseFloat(loan_amount_field.value) / T
+
+            
+            // for display
+            R = R * ( 1 + I)
+            P = P * ( 1 + I)
+            let M_a = P / T  + (P * R)
+            monthly_payment_field.value = M_a.toFixed()
         }
 
         if (parseFloat(loan_amount_field.value) > 0 & parseFloat(several_months.value) > 0 & parseFloat(foreign_exchange.value) > 0 & parseFloat(annual_interest.value) > 0 & parseFloat(monthly_payment_field.value) > 0) {
             document.querySelector("#disposal_board_activator").disabled = false
             STATE.loan_amount_field = parseFloat(loan_amount_field.value)
             STATE.several_months = parseFloat(several_months.value)
-            STATE.foreign_exchange = parseFloat(foreign_exchange.value)
             STATE.annual_interest = parseFloat(annual_interest.value)
+
+            
+            if (parseFloat(foreign_exchange.value) > 9) {
+                foreign_exchange.value = 9
+            }
+            STATE.foreign_exchange = parseFloat(foreign_exchange.value)
         }
         
         updateRangeUI()       
@@ -385,19 +389,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // document.querySelector("#disposal_board_activator").click()
     const makeCellsSelectable = () => {
-        document.querySelectorAll("td").forEach(elem => {
-            elem.addEventListener("click", e => {
-                if (!e.ctrlKey) {
-                    document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
-                }
-                elem.classList.toggle("active")
+        // document.querySelectorAll("td").forEach(elem => {
+        //     elem.addEventListener("click", e => {
+        //         if (!e.ctrlKey) {
+        //             document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
+        //         }
+        //         elem.classList.toggle("active")
     
-                window.addEventListener("keyup", e => {
-                    if (e.key == "Escape") {
-                        document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
-                    }
-                })
-            })
-        })
+        //         window.addEventListener("keyup", e => {
+        //             if (e.key == "Escape") {
+        //                 document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
+        //             }
+        //         })
+        //     })
+        // })
     }
 })

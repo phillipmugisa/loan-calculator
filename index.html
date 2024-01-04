@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="script.js" defer></script>
 </head>
-<body style="width: 90vw;margin-inline: auto;">
-    <section class="w-11/12 mx-auto grid gap-2 px-4 py-6 min-h-7/12 content-center justify-start">
+<body style="margin-inline: auto;padding: .1rem;">
+    <section class="w-12/12 mx-auto grid gap-2 px-4 py-6 min-h-7/12 content-center justify-start">
         <div class="grid gap-4 w-8/12">
             <h1 class="font-bold text-5xl capitalize text-green-500">Loan calculator</h1>
             <p class="font-medium text-lg text-gray-800">A loan calculator is a financial planning tool that allows you to compare different loan repayment methods. The loan calculator in front of you will calculate  for you the amount of your expected monthly repayments based on the loan amount you set, or alternatively, will calculate the amount of the loan you can receive according to the monthly amount you can allocate for loan repayment.</p>
             <p class="font-normal text-lg text-gray-800">The data can be entered in the windows at the bottom of the columns or using the scroll bars.</p>
         </div>
     </section>
-    <section class="main-area w-11/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
+    <section class="main-area w-12/12 mx-auto grid gap-4 px-4 py-6 min-h-7/12 content-center justify-start text-gray-800">
         <div class="calc-group-head">
             <div id="for_calc" class="grid">
                 <div class="calculator-type-toggler flex gap-2">
@@ -182,7 +182,7 @@
                     </div>
                 </div>
                 <form action="" class="grid gap-2 text-center">
-                    <input type="number" min="0" name="" id="foreign_exchange" class="py-1 px-2 bg-slate-100">
+                    <input type="number" min="0" max="9" name="" id="foreign_exchange" class="py-1 px-2 bg-slate-100">
                     <label for="foreign_exchange" class="text-white">Linkage to index/foreign exchange </label>
                 </form>
             </div>

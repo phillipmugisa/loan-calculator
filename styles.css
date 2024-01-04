@@ -188,6 +188,9 @@ section {
   justify-items: center;
   align-content: flex-start;
 }
+.calc-group form  input {
+  width: 100%;
+}
 
 .calc-group form label {
   color: hsl(0, 0%, 96%);
@@ -324,4 +327,8 @@ table tbody {
     display: flex;
   }
 
+  #disposal_board {
+    width: 100vw;
+    overflow-x: auto;
+  }
 }
