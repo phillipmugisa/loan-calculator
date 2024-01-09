@@ -271,25 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-    // document.querySelectorAll(".calc-group .ball").forEach(elem => {
-    //     elem.draggable = true
-    //     elem.addEventListener("drag", e => {
-    //         if (document.querySelector("#monthly_payment_selector").checked && elem.id == "monthly_payment_ball") {
-    //             return
-    //         } else if (document.querySelector("#load_amount_selector").checked && elem.id == "loan_amount_ball") {
-    //             return
-    //         }
-    //         let computedVal
-    //         if (e.clientY >= elem.parentElement.getBoundingClientRect().top && e.clientY <= elem.parentElement.getBoundingClientRect().bottom) {
-    //             let fromTop = (e.clientY / elem.parentElement.getBoundingClientRect().bottom * 100).toFixed()
-    //             computedVal = 100 - fromTop
-    //             styleTrack(elem.id, computedVal)
-    //             updateFormUI(computedVal, elem.id)
-    //             makeCalculation()
-    //         }
-    //     })
-    // })
-
     document.querySelectorAll(".slider").forEach(elem => {
         elem.oninput = function () {
             styleTrack(elem.id, elem.value)
@@ -305,6 +286,12 @@ document.addEventListener("DOMContentLoaded", () => {
         elem.addEventListener("keyup", () => {
             updateRangeUI()
             makeCalculation()
+        })
+        elem.addEventListener("click", e => {
+            console.log(e)
+            if (elem.value == 0) {
+                elem.closest("form").reset()
+            }
         })
     })
 
@@ -331,11 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let R = toMPercentage(annual_interest.value)
         let I = toMPercentage(foreign_exchange.value || 0)
 
-        if (annual_interest.value <= 0 && !document.querySelector("#load_amount_selector").checked) {
+        if ((annual_interest.value <= 0 || annual_interest.value == undefined) && !document.querySelector("#load_amount_selector").checked) {
             setValues(loan_amount_field.value, annual_interest.value, T, foreign_exchange.value)
             return
         }
-        if ((annual_interest.value <= 0 || foreign_exchange.value <= 0) && document.querySelector("#load_amount_selector").checked) {
+        if ((annual_interest.value <= 0 || annual_interest.value == undefined || foreign_exchange.value <= 0 || foreign_exchange.value == undefined) && document.querySelector("#load_amount_selector").checked) {
             setValues(1, annual_interest.value, T, foreign_exchange.value, monthly_payment_field.value)
             return
         }
