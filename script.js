@@ -203,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#for_board").classList.remove("hidden")
         document.querySelector("#disposal_board").classList.remove("hidden")
 
-        makeCellsSelectable()
 
         document.querySelector("#download_pdf").addEventListener("click", () => {
             const iframe = document.createElement('iframe');
@@ -411,6 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // // elem.style.bottom = `${value}%`
         elem.value = value
     }
+    
     
 
     const setValues = (P, R, T, I, M = 1) => {
