@@ -124,7 +124,7 @@ section {
 .calc-sliders button {
   padding: .25rem .5rem;
   font-size: 1rem;
-  background-color: hsl(99, 80%, 40%);
+  background-color: #3A880F;
   color: white;
 }
 
@@ -135,18 +135,27 @@ section {
   }
 }
 
+.calculator-type-toggler{
+  display: flex;
+  gap: 0 !important;
+}
 .calculator-type-toggler button {
   border: 2px solid gray;
   color: #292929;
   transition: .2s linear;
+  background-color: #E2E6E9;
+  margin: 0;
+  border: none;
+  border-bottom: 2px solid #3A880F;
+  padding: .5rem 1rem;
 }
 .calculator-type-toggler button:not(.active):hover {
-  border-bottom: 2px solid hsl(99, 80%, 40%);
-  color: hsl(99, 80%, 40%);
+  border-bottom: 2px solid #3A880F;
+  color: #3A880F;
 }
 
 .calculator-type-toggler button.active {
-  background: hsl(99, 80%, 40%);
+  background: #3A880F;
   color: white;
 }
 
@@ -190,6 +199,7 @@ section {
 }
 .calc-group form  input {
   width: 100%;
+  text-align: center;
 }
 
 .calc-group form label {
@@ -199,11 +209,15 @@ section {
 }
 
 .calc-group form.active {
-  background-color: hsl(99, 80%, 40%);
+  background-color: #3A880F;
+}
+.range {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .range .ball-track {
-  border-inline-start: 1px solid gray;
+  border-inline-start: 5px solid #D4DACE;
   display: block;
   /* height: 78vh; */
   height: 100%;
@@ -215,14 +229,14 @@ section {
 .range .ball {
   width: 20px;
   aspect-ratio: 1;
-  background-color: gray;
+  background-color: #3C3B3B;
   border-radius: 50%;
   border: 1px solid gray;
   transition: color .3s linear;
 
   position: absolute;
-  left: 50%;
-  transform: translate(-50%, -0px);
+  left: 65%;
+  transform: translate(-65%, -0px);
   bottom: 0;
 
   cursor: grab;
@@ -239,7 +253,7 @@ section {
 }
 
 .calc-group .values span {
-  border-block-end: 1px solid hsl(0, 0%, 90%);
+  border-block-end: 1px solid #C4C7C0;
 }
 
 button {
@@ -262,7 +276,7 @@ button {
 
 
 #for_board {
-  color: hsl(99, 80%, 40%);
+  color: #3A880F;
 }
 #for_board .label {
   font-weight: 500;
@@ -287,7 +301,7 @@ thead th {
   text-align: left;
   color: white;
   padding: 10px 10px;
-  background-color: hsl(99, 80%, 40%);
+  background-color: #3A880F;
 }
 tr:nth-child(even) {
   background: #f8f8f8;
@@ -296,7 +310,7 @@ table td {
   cursor: pointer;
 }
 table td.active {
-  outline: 2px solid hsl(99, 80%, 40%);
+  outline: 2px solid #3A880F;
 }
 
 table tbody {
@@ -307,6 +321,7 @@ table tbody {
   font-weight: 500;
   color: black;
 }
+.md-title {display: none;}
 
 @media (max-width: 700px) {
   #calc_input {
@@ -331,4 +346,40 @@ table tbody {
     width: 100vw;
     overflow-x: auto;
   }
+
+  tr {
+    display: grid;
+  }
+  .md-title {display: inline-block;margin-right: .5rem;}
+}
+
+
+
+input[type=range][orient=vertical] {
+    appearance: slider-vertical;
+    width: 8px;
+    height: 100%;
+    padding: 0 5px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: #D4DACE;
+  width: 10px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #D4DACE;
+  /* width: 10px; */
+  border-radius: 5px;
+}
+input[type="range"]::-moz-range-thumb {
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  border-radius: 50%;
+  background-color: #4caf50 !important;
+  cursor: pointer;
+  left: 30%;
 }

@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#spitzer_calc").classList.remove("grid")
 
         document.querySelector(".calculator-type-toggler .active").classList.remove("active")
+        setValues(1000, 0.00, 2, 0.00)
     }
     document.querySelector("#spitzer").addEventListener("click", e => {
         resetCalcs()
@@ -47,28 +48,30 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#monthly_payment_form").classList.remove("active")
             document.querySelector("#loan_amount_form").classList.add("active")
         }
+        setValues(P=0, R=0, T=2, I=0, M=1)
     })
 
     const updateFormUI = (computedVal, id) => {
 
         if ("loan_amount_ball" === id) {
-            document.querySelector("#loan_amount_field").value = (computedVal * 10000).toFixed(2)
+            document.querySelector("#loan_amount_field").value = computedVal
         }
             
         else if ("several_months_ball" === id) {
-            document.querySelector("#several_months").value = (computedVal * 1).toFixed(2)
+            document.querySelector("#several_months").value = computedVal
         }
             
         else if ("annual_interest_ball" === id) {
-            document.querySelector("#annual_interest").value = (computedVal * 0.15).toFixed(2)
+            console.log(computedVal)
+            document.querySelector("#annual_interest").value = computedVal
         }
         
         else if ("foreign_exchange_ball" === id) {
-            document.querySelector("#foreign_exchange").value = (computedVal * 0.08).toFixed(2)
+            document.querySelector("#foreign_exchange").value = computedVal
         }
             
         else if ("monthly_payment_ball" === id) {
-            document.querySelector("#monthly_payment_field").value = (computedVal * 200).toFixed(2)
+            document.querySelector("#monthly_payment_field").value = computedVal
         }
     }
 
@@ -141,14 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
             totals.paidFundComponent = (totals.paidFundComponent + state_copy.paidFundComponent)
 
             tableRow.innerHTML = `
-                <td>${i}</td>
-                <td>${state_copy.loan_amount_field.toFixed(2)}</td>
-                <td>${state_copy.monthlyRefund.toFixed(2)}</td>
-                <td class="fmt">${state_copy.monthly_payment_field.toFixed(2)}</td>
-                <td>${state_copy.IndexComponentOnInterestRate.toFixed(2)}</td>
-                <td>${state_copy.paymentInterestComponent.toFixed(2)}</td>
-                <td>${state_copy.IndexComponentOnFund.toFixed(2)}</td>
-                <td>${state_copy.paidFundComponent.toFixed(2)}</td>
+                <td><span class="md-title">Several months &#8594; </span>${i}</td>
+                <td><span class="md-title">the unpaid balance &#8594; </span>${state_copy.loan_amount_field.toFixed(2)}</td>
+                <td><span class="md-title">Monthly repayments &#8594; </span>${state_copy.monthlyRefund.toFixed(2)}</td>
+                <td class="fmt"><span class="md-title">Fixed monthly repayment &#8594; </span>${state_copy.monthly_payment_field.toFixed(2)}</td>
+                <td><span class="md-title">The index component on the interest rate &#8594; </span>${state_copy.IndexComponentOnInterestRate.toFixed(2)}</td>
+                <td><span class="md-title">The interest component of the payment &#8594; </span>${state_copy.paymentInterestComponent.toFixed(2)}</td>
+                <td><span class="md-title">The index component on the fund &#8594; </span>${state_copy.IndexComponentOnFund.toFixed(2)}</td>
+                <td><span class="md-title">The fund component is paid &#8594; </span>${state_copy.paidFundComponent.toFixed(2)}</td>
             `
             disposal_board.querySelector("tbody").appendChild(tableRow)
         }
@@ -156,14 +159,14 @@ document.addEventListener("DOMContentLoaded", () => {
         
         let tableRow = document.createElement("tr")
         tableRow.innerHTML = `
-            <td>0</td>
-            <td>${STATE.loan_amount_field}</td>
-            <td></td>
-            <td class="fmt"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><span class="md-title">Several months &#8594; </span>0</td>
+            <td><span class="md-title">the unpaid balance &#8594; </span>${STATE.loan_amount_field}</td>
+            <td><span class="md-title">Monthly repayments &#8594; </span></td>
+            <td class="fmt"><span class="md-title">Fixed monthly repayment &#8594; </span></td>
+            <td><span class="md-title">The index component on the interest rate &#8594; </span></td>
+            <td><span class="md-title">The interest component of the payment &#8594; </span></td>
+            <td><span class="md-title">The index component on the fund &#8594; </span></td>
+            <td><span class="md-title">The fund component is paid &#8594; </span></td>
         `
         disposal_board.querySelector("tbody").prepend(tableRow)
 
@@ -171,14 +174,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let totalstableRow = document.createElement("tr")
         totalstableRow.classList.add("totals")
         totalstableRow.innerHTML = `
-            <td></td>
-            <td></td>
-            <td>${totals.monthlyRefund.toFixed(2)}</td>
-            <td class="fmt">${totals.monthly_payment_field.toFixed(2)}</td>
-            <td>${totals.IndexComponentOnInterestRate.toFixed(2)}</td>
-            <td>${totals.paymentInterestComponent.toFixed(2)}</td>
-            <td>${totals.IndexComponentOnFund.toFixed(2)}</td>
-            <td>${totals.paidFundComponent.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Several months &#8594; </span></td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">the unpaid balance &#8594; </td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Monthly repayments &#8594; ${totals.monthlyRefund.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6" class="fmt"><span class="md-title">Fixed monthly repayment &#8594; ${totals.monthly_payment_field.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the interest rate &#8594; ${totals.IndexComponentOnInterestRate.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The interest component of the payment &#8594; ${totals.paymentInterestComponent.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the fund &#8594; ${totals.IndexComponentOnFund.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The fund component is paid &#8594; ${totals.paidFundComponent.toFixed(2)}</td>
         `
         disposal_board.querySelector("tbody").prepend(totalstableRow)
 
@@ -253,42 +256,54 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-    document.querySelectorAll(".calc-group .ball").forEach(elem => {
-        elem.draggable = true
-        elem.addEventListener("drag", e => {
-            if (document.querySelector("#monthly_payment_selector").checked && elem.id == "monthly_payment_ball") {
-                return
-            } else if (document.querySelector("#load_amount_selector").checked && elem.id == "loan_amount_ball") {
-                return
-            }
-            let computedVal
-            if (e.clientY >= elem.parentElement.getBoundingClientRect().top && e.clientY <= elem.parentElement.getBoundingClientRect().bottom) {
-                let fromTop = (e.clientY / elem.parentElement.getBoundingClientRect().bottom * 100).toFixed()
-                computedVal = 100 - fromTop
-                styleTrack(elem.id, computedVal)
+    // document.querySelectorAll(".calc-group .ball").forEach(elem => {
+    //     elem.draggable = true
+    //     elem.addEventListener("drag", e => {
+    //         if (document.querySelector("#monthly_payment_selector").checked && elem.id == "monthly_payment_ball") {
+    //             return
+    //         } else if (document.querySelector("#load_amount_selector").checked && elem.id == "loan_amount_ball") {
+    //             return
+    //         }
+    //         let computedVal
+    //         if (e.clientY >= elem.parentElement.getBoundingClientRect().top && e.clientY <= elem.parentElement.getBoundingClientRect().bottom) {
+    //             let fromTop = (e.clientY / elem.parentElement.getBoundingClientRect().bottom * 100).toFixed()
+    //             computedVal = 100 - fromTop
+    //             styleTrack(elem.id, computedVal)
+    //             updateFormUI(computedVal, elem.id)
+    //             makeCalculation()
+    //         }
+    //     })
+    // })
 
-                updateFormUI(computedVal, elem.id)
-    
-                makeCalculation()
-            }
+    document.querySelectorAll(".slider").forEach(elem => {
+        elem.oninput = function () {
+            styleTrack(elem.id, elem.value)
+            updateFormUI(elem.value, elem.id)
+            makeCalculation()
+        }
+    })
+
+    let fields = ["#loan_amount_field", "#several_months", "#foreign_exchange", "#annual_interest", "#monthly_payment_field"]
+    fields.forEach(id => {
+        let elem = document.querySelector(id)
+        elem.addEventListener("change", () => makeCalculation())
+        elem.addEventListener("keyup", () => {
+            updateRangeUI()
+            makeCalculation()
         })
     })
 
-    document.querySelector("#loan_amount_field")
-        .addEventListener("change", () => makeCalculation())
-    document.querySelector("#several_months")
-        .addEventListener("change", () => makeCalculation())
-    document.querySelector("#foreign_exchange")
-        .addEventListener("change", () => makeCalculation())
-    document.querySelector("#annual_interest")
-        .addEventListener("change", () => makeCalculation())
-    document.querySelector("#monthly_payment_field")
-        .addEventListener("change", () => makeCalculation())
-    
+    document.querySelectorAll("form").forEach(elem => {
+        elem.addEventListener("submit", e => {
+            e.preventDefault()
+        })
+    })
 
     const toMPercentage = value => value / (12 * 100)
 
     const makeCalculation = () => {
+
+
         updateRangeUI()
         
         loan_amount_field = document.querySelector("#loan_amount_field")
@@ -296,19 +311,28 @@ document.addEventListener("DOMContentLoaded", () => {
         foreign_exchange = document.querySelector("#foreign_exchange")
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
-
+        
         let T = parseFloat(several_months.value)
         let R = toMPercentage(annual_interest.value)
         let I = toMPercentage(foreign_exchange.value || 0)
 
+        if (annual_interest.value <= 0 && !document.querySelector("#load_amount_selector").checked) {
+            setValues(loan_amount_field.value, annual_interest.value, T, foreign_exchange.value)
+            return
+        }
+        if ((annual_interest.value <= 0 || foreign_exchange.value <= 0) && document.querySelector("#load_amount_selector").checked) {
+            setValues(1, annual_interest.value, T, foreign_exchange.value, monthly_payment_field.value)
+            return
+        }
+
         if (currentCalc === "spitzer") {
             STATE.calculator = "spitzer"
-            let ffm = ( R) / ( 1 - Math.pow((1 + R), -T) )
+            let ffm = (R) / ( 1 - Math.pow((1 + R), -T) )
             
             if (document.querySelector("#monthly_payment_selector").checked) {
                 document.querySelector("#disposal_board_activator").classList.remove("hidden")
                 let P = parseFloat(loan_amount_field.value)
-
+                
                 // for board
                 let M = P * ffm
                 STATE.monthly_payment_field = M
@@ -323,7 +347,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector("#disposal_board_activator").classList.add("hidden")
                 let M = parseFloat(monthly_payment_field.value)
                 STATE.monthly_payment_field = M
-                let P = M / ffm
+                
+                ffm = (R) / ( 1 - Math.pow((1 + R), -T))
+
+                let P_a = M / ffm                
+                P = P_a / (1 + I)
+
                 loan_amount_field.value = P.toFixed()
             }
 
@@ -369,39 +398,28 @@ document.addEventListener("DOMContentLoaded", () => {
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
 
-        styleTrack("loan_amount_ball", loan_amount_field.value / 10000)
-        styleTrack("several_months_ball", several_months.value / 1)
-        styleTrack("annual_interest_ball", annual_interest.value / 0.15)
-        styleTrack("foreign_exchange_ball", foreign_exchange.value / 0.08)
-        styleTrack("monthly_payment_ball", monthly_payment_field.value / 200)
+        styleTrack("loan_amount_ball", loan_amount_field.value)
+        styleTrack("several_months_ball", several_months.value)
+        styleTrack("annual_interest_ball", annual_interest.value)
+        styleTrack("foreign_exchange_ball", foreign_exchange.value)
+        styleTrack("monthly_payment_ball", monthly_payment_field.value)
         
     }
 
     const styleTrack = (id, value) => {
-        if (value < 0 || value > 100) {
-            return
-        }
         let elem = document.querySelector(`#${id}`)
-        elem.style.bottom = `${value}%`
-        elem.style.transform = `translate(-50%, ${value}%)`
+        // // elem.style.bottom = `${value}%`
+        elem.value = value
     }
+    
 
-    
-    // document.querySelector("#disposal_board_activator").click()
-    const makeCellsSelectable = () => {
-        // document.querySelectorAll("td").forEach(elem => {
-        //     elem.addEventListener("click", e => {
-        //         if (!e.ctrlKey) {
-        //             document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
-        //         }
-        //         elem.classList.toggle("active")
-    
-        //         window.addEventListener("keyup", e => {
-        //             if (e.key == "Escape") {
-        //                 document.querySelectorAll("td.active").forEach(elem => elem.classList.remove("active"))
-        //             }
-        //         })
-        //     })
-        // })
+    const setValues = (P, R, T, I, M = 1) => {
+        document.querySelector("#loan_amount_field").value = P
+        document.querySelector("#annual_interest").value = R
+        document.querySelector("#several_months").value = T
+        document.querySelector("#foreign_exchange").value = I
+        document.querySelector("#monthly_payment_field").value = M
+        updateRangeUI()
     }
+    setValues(1000, 0.00, 2, 0.00)
 })
