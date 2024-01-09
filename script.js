@@ -176,16 +176,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // show totals in first row
         let totalstableRow = document.createElement("tr")
+        console.log(totals.monthlyRefund.toFixed(2))
         totalstableRow.classList.add("totals")
         totalstableRow.innerHTML = `
             <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Several months &#8594; </span></td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">the unpaid balance &#8594; </td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Monthly repayments &#8594; ${totals.monthlyRefund.toFixed(2)}</td>
-            <td style="font-weight: bold;background: #E6E6E6" class="fmt"><span class="md-title">Fixed monthly repayment &#8594; ${totals.monthly_payment_field.toFixed(2)}</td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the interest rate &#8594; ${totals.IndexComponentOnInterestRate.toFixed(2)}</td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The interest component of the payment &#8594; ${totals.paymentInterestComponent.toFixed(2)}</td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the fund &#8594; ${totals.IndexComponentOnFund.toFixed(2)}</td>
-            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The fund component is paid &#8594; ${totals.paidFundComponent.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">the unpaid balance &#8594; </span> </td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Monthly repayments &#8594; </span> ${totals.monthlyRefund.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6" class="fmt"><span class="md-title">Fixed monthly repayment &#8594; </span> ${totals.monthly_payment_field.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the interest rate &#8594; </span> ${totals.IndexComponentOnInterestRate.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The interest component of the payment &#8594; </span> ${totals.paymentInterestComponent.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The index component on the fund &#8594; </span> ${totals.IndexComponentOnFund.toFixed(2)}</td>
+            <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">The fund component is paid &#8594; </span> ${totals.paidFundComponent.toFixed(2)}</td>
         `
         disposal_board.querySelector("tbody").prepend(totalstableRow)
 
@@ -231,7 +232,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     thead {
                         color: black;
                         font-weight: 500;
+                        border-bottom: 2px solid black;
                     }
+                    .totals {
+                        background-color: #706d6db9;
+                    }
+                    tr {
+                        border-bottom: 1px solid gray;
+                    }
+                    td {
+                        border-bottom: 1px solid gray;
+                    }
+                    .md-title {display: none;}
                 </style>
                 <body>
                     <div style="margin-block: 2rem;">
