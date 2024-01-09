@@ -33,6 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#equal_fund_calc").classList.add("grid")
         currentCalc = "equal_fund"
         e.target.closest("button").classList.add("active")
+
+        document.querySelector("#monthly_payment_selector").checked = true
+        document.querySelector("#loan_amount_form").classList.remove("active")
+        document.querySelector("#monthly_payment_form").classList.add("active")
     })
     
 
