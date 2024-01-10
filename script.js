@@ -44,13 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.checked === true) {
             document.querySelector("#loan_amount_form").classList.remove("active")
             document.querySelector("#monthly_payment_form").classList.add("active")
+            document.querySelector("#disposal_board_activator").classList.remove("hidden")
         }
+        setValues(1000, 0.00, 2, 0.00)
+        makeCalculation()
     })
 
     document.querySelector("#load_amount_selector").addEventListener("change", e => {
         if (e.target.checked === true) {
             document.querySelector("#monthly_payment_form").classList.remove("active")
             document.querySelector("#loan_amount_form").classList.add("active")
+            document.querySelector("#disposal_board_activator").classList.add("hidden")
         }
         setValues(P=0, R=0, T=2, I=0, M=1)
     })
@@ -287,10 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
             makeCalculation()
         })
         elem.addEventListener("click", e => {
-            //if (elem.value == 0) {
-                elem.closest("form").reset()
-            // }
-            
+            elem.closest("form").reset()
         })
     })
 
