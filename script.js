@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
             
         else if ("annual_interest_ball" === id) {
-            console.log(computedVal)
             document.querySelector("#annual_interest").value = computedVal
         }
         
@@ -176,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // show totals in first row
         let totalstableRow = document.createElement("tr")
-        console.log(totals.monthlyRefund.toFixed(2))
         totalstableRow.classList.add("totals")
         totalstableRow.innerHTML = `
             <td style="font-weight: bold;background: #E6E6E6"><span class="md-title">Several months &#8594; </span></td>
@@ -266,6 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
             disposal_board_activator.textContent = "Return to Calculator"
         } else if (document.querySelector("#disposal_board").classList.contains("grid")) {
             showCalc()
+            makeCalculation()
             disposal_board_activator.textContent = "Disposal Board"
         }
     })
@@ -288,7 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
             makeCalculation()
         })
         elem.addEventListener("click", e => {
-            console.log(e)
             if (elem.value == 0) {
                 elem.closest("form").reset()
             }
@@ -305,7 +303,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const makeCalculation = () => {
 
-
         updateRangeUI()
         
         loan_amount_field = document.querySelector("#loan_amount_field")
@@ -318,6 +315,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let R = toMPercentage(annual_interest.value)
         let I = toMPercentage(foreign_exchange.value || 0)
 
+        document.querySelector("#disposal_board_activator").disabled = true
+        document.querySelector("#disposal_board_activator").setAttribute("disabled", "true")
         if ((annual_interest.value <= 0 || annual_interest.value == undefined) && !document.querySelector("#load_amount_selector").checked) {
             setValues(loan_amount_field.value, annual_interest.value, T, foreign_exchange.value)
             return
