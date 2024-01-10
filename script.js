@@ -39,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#monthly_payment_form").classList.add("active")
         
         document.querySelector("#disposal_board_activator").classList.remove("hidden")
+        
+        setValues(1000, 0.00, 2, 0.00)
+        makeCalculation()
     })
     
 
