@@ -287,9 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
             makeCalculation()
         })
         elem.addEventListener("click", e => {
-            if (elem.value == 0) {
+            //if (elem.value == 0) {
                 elem.closest("form").reset()
-            }
+            // }
+            
         })
     })
 
