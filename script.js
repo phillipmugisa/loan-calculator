@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
         calculator: ""
     }
 
+    const formChangeState = {
+        loan_amount_field: false,
+        several_months: false,
+        annual_interest: false,
+        foreign_exchange: false,
+        monthly_payment_field: false,
+    }
+
     const resetCalcs = () => {
         document.querySelector("#equal_fund_calc").classList.remove("hidden")
         document.querySelector("#spitzer_calc").classList.remove("hidden")
@@ -37,11 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#monthly_payment_selector").checked = true
         document.querySelector("#loan_amount_form").classList.remove("active")
         document.querySelector("#monthly_payment_form").classList.add("active")
-        
         document.querySelector("#disposal_board_activator").classList.remove("hidden")
-        
-        setValues(1000, 0.00, 2, 0.00)
-        makeCalculation()
     })
     
 
@@ -50,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#loan_amount_form").classList.remove("active")
             document.querySelector("#monthly_payment_form").classList.add("active")
             document.querySelector("#disposal_board_activator").classList.remove("hidden")
+            document.querySelector("#monthly_payment_field").disabled = true
+            document.querySelector("#loan_amount_field").disabled = false
         }
         setValues(1000, 0.00, 2, 0.00)
         makeCalculation()
@@ -60,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#monthly_payment_form").classList.remove("active")
             document.querySelector("#loan_amount_form").classList.add("active")
             document.querySelector("#disposal_board_activator").classList.add("hidden")
+            document.querySelector("#monthly_payment_field").disabled = false
+            document.querySelector("#loan_amount_field").disabled = true
         }
         setValues(P=0, R=0, T=2, I=0, M=1)
     })
@@ -67,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateFormUI = (computedVal, id) => {
 
         if ("loan_amount_ball" === id) {
-            document.querySelector("#loan_amount_field").value = computedVal
+            document.querySelector("#loan_amount_field").value = numberWithCommas(computedVal)
         }
             
         else if ("several_months_ball" === id) {
@@ -83,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
             
         else if ("monthly_payment_ball" === id) {
-            document.querySelector("#monthly_payment_field").value = computedVal
+            document.querySelector("#monthly_payment_field").value = numberWithCommas(computedVal)
         }
     }
 
@@ -100,11 +108,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#calc_input").classList.remove("hidden")
 
         
-        document.querySelector("#loan_amount_field").value = STATE.loan_amount_field
+        document.querySelector("#loan_amount_field").value = numberWithCommas(STATE.loan_amount_field)
         document.querySelector("#several_months").value = STATE.several_months
         document.querySelector("#foreign_exchange").value = STATE.foreign_exchange
         document.querySelector("#annual_interest").value = STATE.annual_interest
-        document.querySelector("#monthly_payment_field").value = STATE.monthly_payment_field.toFixed()
+        document.querySelector("#monthly_payment_field").value = numberWithCommas(STATE.monthly_payment_field.toFixed())
     }
     
     const showBoard = () => {
@@ -296,7 +304,17 @@ document.addEventListener("DOMContentLoaded", () => {
             makeCalculation()
         })
         elem.addEventListener("click", e => {
-            elem.closest("form").reset()
+            let oldVal = elem.value
+            if (formChangeState[elem.id] == false) {
+                elem.closest("form").reset()
+            }
+            document.addEventListener("click", e => {
+                if (e.target.closest("input") != elem) {
+                    if (elem.value == "" || elem.value == undefined) {
+                        elem.value = oldVal
+                    }
+                }
+            })
         })
     })
 
@@ -309,6 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toMPercentage = value => value / (12 * 100)
 
     const makeCalculation = () => {
+        
 
         updateRangeUI()
         
@@ -317,6 +336,9 @@ document.addEventListener("DOMContentLoaded", () => {
         foreign_exchange = document.querySelector("#foreign_exchange")
         annual_interest = document.querySelector("#annual_interest")
         monthly_payment_field = document.querySelector("#monthly_payment_field")
+
+        loan_amount_field.value = numberWithOutCommas(loan_amount_field.value)
+        monthly_payment_field.value = numberWithOutCommas(monthly_payment_field.value)
         
         let T = parseFloat(several_months.value)
         let R = toMPercentage(annual_interest.value)
@@ -393,7 +415,11 @@ document.addEventListener("DOMContentLoaded", () => {
             STATE.foreign_exchange = parseFloat(foreign_exchange.value)
         }
         
-        updateRangeUI()       
+        updateRangeUI()
+        
+        
+        document.querySelector("#loan_amount_field").value = numberWithCommas(loan_amount_field.value)
+        document.querySelector("#monthly_payment_field").value = numberWithCommas(monthly_payment_field.value)
 
     }
 
@@ -406,11 +432,11 @@ document.addEventListener("DOMContentLoaded", () => {
         monthly_payment_field = document.querySelector("#monthly_payment_field")
 
 
-        styleTrack("loan_amount_ball", loan_amount_field.value)
+        styleTrack("loan_amount_ball", numberWithOutCommas(loan_amount_field.value))
         styleTrack("several_months_ball", several_months.value)
         styleTrack("annual_interest_ball", annual_interest.value)
         styleTrack("foreign_exchange_ball", foreign_exchange.value)
-        styleTrack("monthly_payment_ball", monthly_payment_field.value)
+        styleTrack("monthly_payment_ball", numberWithOutCommas(monthly_payment_field.value))
         
     }
 
@@ -423,12 +449,24 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     const setValues = (P, R, T, I, M = 1) => {
-        document.querySelector("#loan_amount_field").value = P
+        document.querySelector("#loan_amount_field").value = numberWithCommas(P)
         document.querySelector("#annual_interest").value = R
         document.querySelector("#several_months").value = T
         document.querySelector("#foreign_exchange").value = I
-        document.querySelector("#monthly_payment_field").value = M
+        document.querySelector("#monthly_payment_field").value = numberWithCommas(M)
         updateRangeUI()
     }
+    
+    document.querySelector("#monthly_payment_field").disabled = true
+    document.querySelector("#loan_amount_field").disabled = false
     setValues(1000, 0.00, 2, 0.00)
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function numberWithOutCommas(x) {
+        return x.toString().replace(",", "");
+    }
+    
 })
