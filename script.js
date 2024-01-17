@@ -312,8 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (e.target.closest("input") != elem) {
                     if (elem.value == "" || elem.value == undefined) {
                         elem.value = oldVal
-                    } else {
-                    formChangeState[elem.id = true
                     }
                 }
             })
